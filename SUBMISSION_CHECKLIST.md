@@ -10,13 +10,14 @@
 - [x] **Explainable Emerging Trend Engine**: Growth rate velocity math and evidence citations.
 - [x] **Ask LOOP Grounded Q&A**: Full-text feedback search with evidence citations and insufficient evidence handling.
 - [x] **Voice of Customer Reports**: Multi-section report generator, date/segment filters, and clean printable PDF view (`/dashboard/reports/[id]/print`).
-- [x] **Role-Based Access Control (RBAC)**: Owner, Admin, Analyst, and Viewer roles with server-side enforcement.
-- [x] **Automated Testing Suite**: Vitest unit/integration tests and Playwright E2E configuration.
+- [x] **Role-Based Access Control (RBAC)**: Owner, Admin, Analyst, and Viewer roles with server-side enforcement and owner safeguards.
+- [x] **Automated Testing Suite**: Vitest unit tests (6 test files, 13 unit tests) and Playwright E2E configuration (10 test cases covering 25 user behaviors).
 - [x] **Documentation**: `README.md`, `.env.example`, `ARCHITECTURE.md`, `CONTRIBUTING.md`, `REQUIREMENTS_TRACEABILITY.md`, `DEMO_SCRIPT.md`.
 
 ---
 
-## Shareable Project Links (Placeholders for Submission)
-- **Live Vercel Deployment**: `https://project-loop-demo.vercel.app`
-- **GitHub Source Code Repository**: `https://github.com/zidio-team/project-loop`
-- **Supabase Database Dashboard**: `https://supabase.com/dashboard/project/loop-db`
+## Shareable Project Links
+
+- **GitHub Source Code Repository**: [https://github.com/kantimohanthy/zidio-Web-dev](https://github.com/kantimohanthy/zidio-Web-dev)
+- **Production Host**: Local Next.js 14 App Router server (`http://localhost:3000`)
+- **Database Engine**: Local Seeded Database Engine with Supabase Migration SQL (`supabase/migrations/`)

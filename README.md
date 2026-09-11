@@ -1,8 +1,8 @@
 # PROJECT LOOP — AI Customer Feedback Intelligence Platform
 
 > **Zidio Web Development Internship Team Project**  
-> **Deadline**: 3 October 2026  
 > **Mentor**: Shaurya Pandey  
+> **Repository**: [https://github.com/kantimohanthy/zidio-Web-dev](https://github.com/kantimohanthy/zidio-Web-dev)
 
 PROJECT LOOP is a full-stack, multi-tenant B2B SaaS web application designed to collect, organize, analyze, search, and act on customer feedback across multiple ingestion channels. The platform transforms unstructured customer feedback into actionable business intelligence through automated sentiment classification, theme and topic extraction, emerging trend velocity detection, grounded AI question answering ("Ask LOOP"), executive analytics dashboards, and Voice-of-Customer (VoC) reporting.
 
@@ -11,8 +11,8 @@ PROJECT LOOP is a full-stack, multi-tenant B2B SaaS web application designed to 
 ## Key Features
 
 - **Multi-Tenant SaaS Security**: Organization-scoped data isolation enforced via Supabase PostgreSQL Row-Level Security (RLS) policies.
-- **Server-Side Role-Based Access Control (RBAC)**: Owner, Admin, Analyst, and Viewer roles with strict permission checks on all mutation endpoints.
-- **Multi-Channel Feedback Ingestion**: Manual entry form, CSV upload wizard (with drag-and-drop, header mapping, row validation, and progress reporting), and REST/Webhook ingestion API.
+- **Server-Side Role-Based Access Control (RBAC)**: Owner, Admin, Analyst, and Viewer roles with permission safeguards protecting owner roles and tenant data.
+- **Multi-Channel Feedback Ingestion**: Manual entry form, CSV upload wizard (with header mapping, row validation, and progress reporting), and REST/Webhook ingestion API.
 - **Dual-Mode AI Analysis Engine**:
   1. *OpenAI LLM Mode*: Cloud provider completions when an API key is configured.
   2. *Local Fallback Mode*: Deterministic, zero-dependency NLP lexicon and rule-based analyzer when no API key is set.
@@ -25,8 +25,8 @@ PROJECT LOOP is a full-stack, multi-tenant B2B SaaS web application designed to 
 
 ## 🛠 Technology Stack
 
-- **Framework**: Next.js 14+ (App Router), TypeScript (Strict Mode), React 19 / 18
-- **Styling & UI**: Tailwind CSS, Lucide Icons, Radix UI primitives
+- **Framework**: Next.js 14+ (App Router), TypeScript (Strict Mode), React 18
+- **Styling & UI**: Tailwind CSS, Lucide Icons
 - **Database & Auth**: Supabase PostgreSQL, Supabase Auth, Row-Level Security (RLS)
 - **Data Visualization**: Recharts
 - **Validation**: Zod
@@ -43,7 +43,7 @@ Copy `.env.example` to `.env`:
 cp .env.example .env
 ```
 
-Set the placeholders:
+Set the placeholders in `.env`:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
@@ -53,7 +53,7 @@ OPENAI_API_KEY=your-openai-key # Optional - falls back to local analyzer if omit
 
 ### 2. Install Dependencies
 ```bash
-cmd /c "npm install"
+npm ci
 ```
 
 ### 3. Run Database Seed Verification
@@ -63,7 +63,7 @@ npm run db:seed
 
 ### 4. Start Local Development Server
 ```bash
-cmd /c "npm run dev"
+npm run dev
 ```
 Navigate to [http://localhost:3000](http://localhost:3000).
 
@@ -80,21 +80,45 @@ Navigate to [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Automated Verification Suite
+## 🧪 Verification & Automated Testing Suite
 
-Run type checking, unit tests, and production build:
+### 1. Code Quality & Type Checks
 ```bash
-npm run type-check
-npm run test
-npm run build
+npm run lint          # Next.js ESLint check (0 errors, 0 warnings)
+npm run type-check    # TypeScript strict type check (0 errors)
 ```
+
+### 2. Unit & Integration Tests (Vitest)
+```bash
+npm run test          # Vitest test suite (6 test files, 13 unit tests passed)
+```
+
+### 3. Production Build Validation
+```bash
+npm run build         # Next.js 14 production build (15/15 routes generated)
+```
+
+### 4. End-to-End User Journey Tests (Playwright)
+Install the Chromium browser executable first:
+```bash
+npm run test:e2e:install  # Installs Playwright Chromium browser
+# or
+npx playwright install chromium
+```
+
+Run the Playwright E2E suite:
+```bash
+npm run test:e2e -- --workers=1
+```
+* **Playwright Test Cases**: 10 test specs in `tests/e2e/user-journeys.spec.ts` (10/10 passed).
+* **User Behaviors Covered**: 25 distinct interactions verified across public landing, auth, executive dashboard, feedback explorer, CSV upload wizard, analytics trends, Ask LOOP Q&A, VoC report print preview, ingestion sources, RBAC team management, and settings.
 
 ---
 
 ## 📁 Repository Documentation Map
 
-- [`ARCHITECTURE.md`](file:///h:/zidio%20Web%20dev/ARCHITECTURE.md): Detailed system architecture, data flow, multi-tenancy, and security design.
-- [`REQUIREMENTS_TRACEABILITY.md`](file:///h:/zidio%20Web%20dev/REQUIREMENTS_TRACEABILITY.md): Matrix mapping every Zidio requirement to its code implementation and test.
+- [`ARCHITECTURE.md`](file:///h:/zidio%20Web%20dev/ARCHITECTURE.md): System architecture, data flow, multi-tenancy, and security design.
+- [`REQUIREMENTS_TRACEABILITY.md`](file:///h:/zidio%20Web%20dev/REQUIREMENTS_TRACEABILITY.md): Matrix mapping requirements to code implementation and test verification.
 - [`DEMO_SCRIPT.md`](file:///h:/zidio%20Web%20dev/DEMO_SCRIPT.md): 5-7 minute evaluator demonstration walkthrough.
 - [`CONTRIBUTING.md`](file:///h:/zidio%20Web%20dev/CONTRIBUTING.md): Git branch conventions and pull request workflows.
 - [`SUBMISSION_CHECKLIST.md`](file:///h:/zidio%20Web%20dev/SUBMISSION_CHECKLIST.md): Project submission deliverables checklist.

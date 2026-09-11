@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Search, Bell, Shield, LogOut, ChevronDown, UserCheck } from 'lucide-react';
 import { useAuth } from '@/context/auth-context';
 import { UserRole } from '@/lib/supabase/types';
@@ -93,9 +94,11 @@ export function Header() {
               className="flex items-center space-x-2 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-500"
             >
               {user?.avatar_url ? (
-                <img
+                <Image
                   src={user.avatar_url}
                   alt={user.full_name}
+                  width={32}
+                  height={32}
                   className="h-8 w-8 rounded-full object-cover ring-1 ring-slate-200 dark:ring-slate-800"
                 />
               ) : (

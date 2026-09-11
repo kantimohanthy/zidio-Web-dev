@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/context/auth-context';
 import { UserRole } from '@/lib/supabase/types';
 import { DEMO_USERS } from '@/lib/utils/mock-db';
@@ -10,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Dialog } from '@/components/ui/dialog';
 import { Users, UserPlus, Shield, Trash2, Mail, Copy, Check } from 'lucide-react';
-import { canManageTeam } from '@/lib/utils/permissions';
+import { canManageTeam, canChangeMemberRole, canRemoveMember } from '@/lib/utils/permissions';
 
 export default function TeamPage() {
   const { role: currentRole, user: currentUser } = useAuth();
@@ -21,22 +22,22 @@ export default function TeamPage() {
   const [copiedLink, setCopiedLink] = useState(false);
 
   const handleRoleChange = (memberId: string, newRole: UserRole) => {
-    if (!canManageTeam(currentRole)) return;
+    const target = members.find(m => m.profile.id === memberId);
+    if (!target) return;
+    if (!canChangeMemberRole(currentRole, target.role, newRole, members)) {
+      alert('Protection Safeguard: Cannot demote or modify role.');
+      return;
+    }
     setMembers(prev => prev.map(m => m.profile.id === memberId ? { ...m, role: newRole } : m));
   };
 
   const handleRemoveMember = (memberId: string) => {
-    if (!canManageTeam(currentRole)) return;
-
-    // Safeguard: Prevent removing last owner
-    const ownersCount = members.filter(m => m.role === 'owner').length;
     const target = members.find(m => m.profile.id === memberId);
-
-    if (target?.role === 'owner' && ownersCount <= 1) {
+    if (!target) return;
+    if (!canRemoveMember(currentRole, target.role, members)) {
       alert('Protection Safeguard: Cannot remove the final organization Owner.');
       return;
     }
-
     setMembers(prev => prev.filter(m => m.profile.id !== memberId));
   };
 
@@ -101,9 +102,11 @@ export default function TeamPage() {
                 className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
               >
                 <div className="flex items-center space-x-3">
-                  <img
-                    src={member.profile.avatar_url}
+                  <Image
+                    src={member.profile.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'}
                     alt={member.profile.full_name}
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full object-cover ring-1 ring-slate-200 dark:ring-slate-800"
                   />
                   <div>

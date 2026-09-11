@@ -31,6 +31,7 @@ export interface OrganizationMember {
   role: UserRole;
   invited_at: string;
   joined_at?: string;
+  created_at?: string;
   user?: Profile;
 }
 
